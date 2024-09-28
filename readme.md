@@ -42,7 +42,7 @@ spec:
 EOF
 ```
 
-## Install Kubeveirt
+## Install Kubevirt
 
 ```bash
 #kubevirt
@@ -113,8 +113,8 @@ To destroy and star over:
 kubectl delete vm taloscp
 kubectl delete pvc taloshd
 
-kubectl apply -f pvc.yaml
-kubectl apply -f vm.yaml
+kubectl apply -f ../pvc.yaml
+kubectl apply -f ../vm.yaml
 ```
 
 
@@ -128,6 +128,12 @@ talosctl gen config taloscp https://$taloscp:6443 --additional-sans $taloscp
 ```
 
 Modify the configuration allowing for single node and using the /dev/vda disk
+add
+network:
+      extraHostEntries:
+        - ip: 127.0.0.1 # The IP of the host.
+          aliases:
+            - taloscp.kubespaces.cloud
 
 ```bash
 # mac version
@@ -151,3 +157,9 @@ talosctl config endpoint $taloscp
 talosctl config node $taloscp
 talosctl bootstrap --talosconfig=./talosconfig
 talosctl kubeconfig ./kubeconfig
+
+
+```bash
+talosctl health
+talosctl services
+```
