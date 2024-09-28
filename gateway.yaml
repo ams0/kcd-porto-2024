@@ -1,0 +1,28 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: taloscp
+  namespace: envoy-gateway-system
+spec:
+  gatewayClassName: eg
+  listeners:
+  - name: talocp
+    hostname: "taloscp.kubespaces.cloud"
+    port: 6443
+    name: apipassthrough
+    protocol: TLS
+    tls:
+      mode: Passthrough
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: talocp
+    hostname: "taloscp.kubespaces.cloud"
+    port: 50000
+    name: talosctlpassthrough
+    protocol: TLS
+    tls:
+      mode: Passthrough
+    allowedRoutes:
+      namespaces:
+        from: All

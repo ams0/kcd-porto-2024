@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    vm.kubevirt.io/name: taloscp
+  name: taloscp
+  namespace: default
+spec:
+  ports:
+  - port: 6443
+    name: api
+    protocol: TCP
+    targetPort: 6443
+  - port: 50000
+    name: talosctl
+    protocol: TCP
+    targetPort: 50000
+  selector:
+    vm.kubevirt.io/name: taloscp
+  type: ClusterIP

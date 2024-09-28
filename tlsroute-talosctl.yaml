@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: taloscpctl
+  namespace: envoy-gateway-system
+spec:
+  parentRefs:
+  - name: taloscp
+    namespace: envoy-gateway-system
+    sectionName: talosctlpassthrough
+  hostnames:
+  - "taloscp.kubespaces.cloud"
+  rules:
+  - backendRefs:
+    - name: taloscp
+      port: 50000
+      namespace: default
