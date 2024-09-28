@@ -124,7 +124,7 @@ Generate a configuration:
 
 ```bash
 export taloscp='taloscp.kubespaces.cloud'
-talosctl gen config taloscp https://$taloscp:6443
+talosctl gen config taloscp https://$taloscp:6443 --additional-sans $taloscp
 ```
 
 Modify the configuration allowing for single node and using the /dev/vda disk
@@ -132,7 +132,7 @@ Modify the configuration allowing for single node and using the /dev/vda disk
 ```bash
 # mac version
 sed -i'' -e 's/sda/vda/g' controlplane.yaml
-sed -i'' -e 's/sda/vda/g' worker.yaml
+# sed -i'' -e 's/sda/vda/g' worker.yaml
 sed -i '' 's/^    # \(allowSchedulingOnControlPlanes.*\)/    \1/' controlplane.yaml
 
 # linux version
@@ -143,7 +143,7 @@ sed -i '' 's/^    # \(allowSchedulingOnControlPlanes.*\)/    \1/' controlplane.y
 Apply the configuration:
 
 ```bash
-talosctl apply-config -f controlplane.yaml -n $taloscp -e https://$taloscp:6443  --insecure
+talosctl apply-config -f controlplane.yaml -n $taloscp -e $taloscp  --insecure #remove insecure after the first apply
 ```
 
 export TALOSCONFIG=./talosconfig

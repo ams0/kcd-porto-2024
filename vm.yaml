@@ -15,7 +15,7 @@ spec:
     spec:
       domain:
         cpu:
-          cores: 2
+          cores: 4
         devices:
           disks:
           - bootOrder: 2
@@ -30,7 +30,7 @@ spec:
           type: q35
         resources:
           requests:
-            memory: 4096M
+            memory: 8192M
       volumes:
       - name: cdromiso
         persistentVolumeClaim:
